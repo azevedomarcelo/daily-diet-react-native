@@ -1,9 +1,11 @@
-import { StatusBar, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   ArrowLeft,
   PencilSimpleLine,
   Trash,
 } from "phosphor-react-native";
+import theme from "@theme/index";
 
 import {
   Badge,
@@ -23,12 +25,10 @@ import {
   TextSecondary,
   Title,
 } from "./styles";
-import theme from "@theme/index";
-import { MealProps } from "@components/Meals";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { TMealProps } from "@typings/types";
 
 type MealLayoutProps = {
-  item: MealProps;
+  item: TMealProps;
   onGoToEditMeal?: () => void;
   onDeleteMeal?: (id: string, date: string) => Promise<void>;
 };
@@ -40,7 +40,7 @@ export function ViewMeal({
 }: MealLayoutProps) {
   const route = useRoute();
   const navigation = useNavigation()
-  const { date, description, isHealthy, name, time } = route.params as MealProps;
+  const { date, description, isHealthy, name, time } = route.params as TMealProps;
   const badgeText = isHealthy ? "dentro da dieta" : "fora da dieta";
 
   return (
@@ -109,6 +109,5 @@ export function ViewMeal({
         </Form>
       </Content>
     </ContainerList>
-
   );
 }

@@ -2,9 +2,6 @@ import theme from "@theme/index";
 import { css } from "styled-components";
 import styled from "styled-components/native";
 
-
-
-
 type StatusProps = {
   status: "success" | "error";
 };

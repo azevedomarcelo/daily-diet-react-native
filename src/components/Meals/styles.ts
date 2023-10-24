@@ -35,20 +35,13 @@ export const TextButton = styled.Text`
   font-size: ${theme.FONT_SIZE.MD};
 `;
 
-export const DayList = styled.View`
-
-`;
+export const DayList = styled.View` `;
 
 export const DataText = styled.Text`
   color: ${theme.COLORS.GRAY_100};
   font-family: ${theme.FONT_FAMILY.BOLD};
   font-size: ${theme.FONT_SIZE.LG};
 `;
-
-
-type TypeProps = {
-  isHealthy: boolean;
-};
 
 export const ContainerMeals = styled.TouchableOpacity`
   width: 100%;
@@ -70,7 +63,7 @@ export const InfoContainer = styled.View`
   align-items: center;
 `;
 
-export const Hour = styled.Text`
+export const Time = styled.Text`
   ${css`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.SM};
@@ -93,6 +86,10 @@ export const TitleMeals = styled.Text`
     color: ${theme.COLORS.GRAY_200};
   `}
 `;
+
+type TypeProps = {
+  isHealthy: boolean;
+};
 
 export const Type = styled.View`
   width: 14px;

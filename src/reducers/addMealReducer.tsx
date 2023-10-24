@@ -1,43 +1,36 @@
+import { TMealProps } from "@typings/types";
+
 type State = {
   id: string;
   name: string;
   description: string;
   date: string;
-  hour: string;
+  time: string;
   isHealthy: boolean;
 }
 
 type Action =
-  | { type: 'addTask'; meal: AddMealProps }
+  | { type: 'addTask'; meal: TMealProps }
   | { type: 'nameChange'; value: string }
   | { type: 'descriptionChange'; value: string }
   | { type: 'dateChange'; value: string }
-  | { type: 'hourChange'; value: string }
+  | { type: 'timeChange'; value: string }
   | { type: 'isHealthyChange'; value: boolean };
-
-type AddMealProps = {
-  id: string;
-  name: string;
-  description: string;
-  date: string;
-  hour: string;
-  isHealthy: boolean;
-}
 
 export function mealReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'addTask':
       const idMeal = (Math.floor(Math.random() * 16)).toString(16);
 
-      const newMeal: AddMealProps = {
+      const newMeal: TMealProps = {
         id: idMeal,
         name: action.meal.name,
         description: action.meal.description,
         date: action.meal.date,
-        hour: action.meal.hour,
+        time: action.meal.time,
         isHealthy: action.meal.isHealthy,
       };
-      console.log('newMeal', newMeal);
+
       return newMeal;
 
     case 'nameChange':
@@ -49,8 +42,8 @@ export function mealReducer(state: State, action: Action): State {
     case 'dateChange':
       return { ...state, date: action.value };
 
-    case 'hourChange':
-      return { ...state, hour: action.value };
+    case 'timeChange':
+      return { ...state, time: action.value };
 
     case 'isHealthyChange':
       return { ...state, isHealthy: action.value };

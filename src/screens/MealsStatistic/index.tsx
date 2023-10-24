@@ -1,9 +1,16 @@
-import { CardsContent, CardsDescription, CardsGroup, CardsInfo, CardsNumber, Container, Content, Description, StatisticContainer, StatisticTitle, TitlePercentage } from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { ArrowLeft } from "phosphor-react-native";
+import { BackButton, CardsContent, CardsDescription, CardsGroup, CardsInfo, CardsNumber, Container, Content, Description, StatisticContainer, StatisticTitle, TitlePercentage } from "./styles";
 
 export function MealsStatistic() {
+  const { goBack } = useNavigation();
   return (
     <Container>
       <Content>
+        <BackButton onPress={goBack}>
+          <ArrowLeft />
+        </BackButton>
+
         <TitlePercentage>
           98.86%
         </TitlePercentage>

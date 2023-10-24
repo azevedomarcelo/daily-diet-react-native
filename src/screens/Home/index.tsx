@@ -1,13 +1,14 @@
-import { Header } from '@components/Header';
+import { ScrollView } from 'react-native';
 
-import { Container, } from './styles';
+import { Header } from '@components/Header';
 import { Percent } from '@components/Percent';
 import { Meals } from '@components/Meals';
-import { ScrollView } from 'react-native';
+
+import { Container, } from './styles';
 
 export function Home() {
   return (
-    <ScrollView >
+    <ScrollView>
       <Container>
         <Header />
         <Percent />

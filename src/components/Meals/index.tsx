@@ -1,6 +1,8 @@
-import { FlatList, SectionList, SectionListComponent } from "react-native";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { FlatList } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Plus } from "phosphor-react-native";
+
 import {
   ButtonAddNewMeal,
   Container,
@@ -10,47 +12,35 @@ import {
   TitleMealContent,
 } from "./styles";
 import { MealList } from "./MealList";
-import { useNavigation } from "@react-navigation/native";
 
-export type MealProps = {
-  id: string;
-  name: string;
-  description: string;
-  date: string;
-  time: string;
-  isHealthy: boolean;
-};
+import { useMeal } from "@hooks/useMeal";
+import { TMealProps } from "@typings/types";
 
 
 export function Meals() {
-  const [meals, setMeals] = useState<MealProps[]>([
-    {
-      id: '1',
-      name: 'X-Tudo',
-      date: '18.10.2023',
-      description: 'ovo, ervilha, milho, queijo, molho, carne de costela e bacon',
-      isHealthy: false,
-      time: '21:00'
-    },
-    {
-      id: '2',
-      name: 'X-Burger',
-      date: '18.10.2023',
-      description: 'hamburger, presunto, queijo e batata palha',
-      isHealthy: true,
-      time: '21:00'
-    },
-  ]);
-
   const navigation = useNavigation();
+  const { getMeals } = useMeal();
+  const [meals, setMeals] = useState<TMealProps[]>([]);
 
-  const handleGoToMealViewPage = (meal: MealProps) => {
+  const handleGoToMealViewPage = (meal: TMealProps) => {
     navigation.navigate("ViewMeal", meal);
   }
 
   const handleGoToAddMealPage = () => {
     navigation.navigate("AddMeal");
   }
+
+  const loadMeals = async () => {
+    await getMeals()
+      .then(response => setMeals(response))
+      .catch(error => console.log(error));
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadMeals();
+    }, [])
+  );
 
   return (
     <Container>
@@ -70,16 +60,16 @@ export function Meals() {
       <DayList>
         <FlatList
           data={meals}
-          keyExtractor={(item, index) => `${item.id}-${index}`}
-          renderItem={({ item, index }) =>
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) =>
             <MealList
-              key={`${item.id}-${index}`}
-              hour={item.time}
+              time={item.time}
               isHealthy={item.isHealthy}
               title={item.name}
               onPress={() => handleGoToMealViewPage(item)}
             />
           }
+          ListEmptyComponent={<TextMeals>Nenhuma refeição cadastrada</TextMeals>}
         />
       </DayList>
     </Container>

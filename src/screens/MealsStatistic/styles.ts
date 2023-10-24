@@ -11,6 +11,7 @@ type ContainerListProps = {
 };
 
 export const Content = styled.View`
+  position: relative;
   width: 100%;
   background-color: ${({ isHealthy }: ContainerListProps) =>
     isHealthy ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
@@ -18,6 +19,12 @@ export const Content = styled.View`
   gap: 8px;
   padding: 32px 24px;
 `;
+
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 32px;
+  top: 32px;
+`
 
 export const TitlePercentage = styled.Text`
   font-size: ${theme.FONT_SIZE.XL};
@@ -27,7 +34,6 @@ export const TitlePercentage = styled.Text`
 export const Description = styled.Text`
   font-size: ${theme.FONT_SIZE.MD};
   text-align: center;
-
 `;
 
 export const StatisticContainer = styled.ScrollView`
@@ -91,4 +97,3 @@ export const CardsInfo = styled.View<CardProps>`
   background-color: ${({ isHealthy }: ContainerListProps) =>
     isHealthy ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 `;
-

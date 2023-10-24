@@ -1,22 +1,24 @@
 import { useReducer } from "react";
 import { TouchableOpacity } from "react-native";
-import { ArrowLeft } from "phosphor-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "styled-components";
+import { ArrowLeft } from "phosphor-react-native";
 import { ButtonOpacity, ButtonText, Container, Content, Form, FormField, FormFieldGroup, Header, Input, InputMasked, Label, TextArea, Title } from "./styles";
 import { mealReducer } from "@reducers/addMealReducer";
-import { useTheme } from "styled-components";
 import { TypeMeal } from "@components/Option";
+import { useMeal } from "@hooks/useMeal";
 
 export function AddMeal() {
   const { COLORS } = useTheme();
   const { goBack } = useNavigation();
+  const { storeMeal } = useMeal();
   const [state, dispatch] = useReducer(mealReducer, {
     id: '',
     name: '',
     description: '',
     date: '',
-    hour: '',
     isHealthy: true,
+    time: '',
   });
 
   return (
@@ -62,16 +64,13 @@ export function AddMeal() {
               <Input
                 onChangeText={(date: string) => dispatch({ type: "dateChange", value: date })}
                 value={state.date}
-              // mask={Masks.DATE_DDMMYYYY}
               />
             </FormField>
             <FormField hasMarginLeft>
               <Label>Hora</Label>
-              {/* <Input
-              /> */}
               <InputMasked
-                onChangeText={(hour: string) => dispatch({ type: "hourChange", value: hour })}
-                value={state.hour}
+                onChangeText={(time: string) => dispatch({ type: "timeChange", value: time })}
+                value={state.time}
                 mask={[/[0-2]/, /[0-9]/, ":", /[0-5]/, /[0-9]/]}
               />
             </FormField>
@@ -97,11 +96,14 @@ export function AddMeal() {
               </FormField>
             </FormFieldGroup>
           </FormField>
-
         </Form>
 
         <ButtonOpacity
-          onPress={() => dispatch({ type: "addTask", meal: state })}
+          onPress={async () => {
+            await storeMeal(state);
+            dispatch({ type: "addTask", meal: state });
+            goBack();
+          }}
         >
           <ButtonText>
             Cadastrar refeição

@@ -18,6 +18,7 @@ module.exports = function (api) {
             '@reducers': './src/reducers',
             '@context': './src/context',
             '@hooks': './src/hooks',
+            '@typings': './src/typings',
           }
         }
       ]

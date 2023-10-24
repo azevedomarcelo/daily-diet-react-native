@@ -1,19 +1,17 @@
-import { Meal } from "src/@types/navigation";
-import { ContainerMeals, Divider, Hour, InfoContainer, TitleMeals, Type } from "./styles";
+import { ContainerMeals, Divider, Time, InfoContainer, TitleMeals, Type } from "./styles";
 
 type MealProps = {
   isHealthy: boolean;
-  hour: string;
+  time: string;
   title: string;
   onPress: () => void;
 };
 
-export function MealList({ title, hour, isHealthy, onPress }: MealProps) {
-
+export function MealList({ title, time, isHealthy, onPress }: MealProps) {
   return (
     <ContainerMeals onPress={onPress}>
       <InfoContainer>
-        <Hour>{hour}</Hour>
+        <Time>{time}</Time>
         <Divider />
         <TitleMeals>{title}</TitleMeals>
       </InfoContainer>

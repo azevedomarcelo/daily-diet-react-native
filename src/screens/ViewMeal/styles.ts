@@ -30,7 +30,7 @@ export const Form = styled.View`
 export const Title = styled.Text`
   flex: 1;
   text-align: center;
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_100};
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.XL};
@@ -59,7 +59,7 @@ export const FormFieldGroup = styled.View`
 `;
 
 export const Label = styled.Text`
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_200};
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.MD};
@@ -67,7 +67,7 @@ export const Label = styled.Text`
 `;
 
 export const Text = styled.Text`
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_100};
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.XL};
@@ -75,7 +75,7 @@ export const Text = styled.Text`
 `;
 
 export const TextSecondary = styled.Text`
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_100};
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.MD};
@@ -84,7 +84,7 @@ export const TextSecondary = styled.Text`
 
 export const SubTitle = styled.Text`
   margin-top: 8px;
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_200};
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.LG};
@@ -105,7 +105,7 @@ export const Badge = styled.View`
 
 export const BadgeText = styled.Text`
   margin-left: 8px;
-  ${() => css`
+  ${css`
     color: ${theme.COLORS.GRAY_100};
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.MD};
@@ -141,12 +141,11 @@ export const TextEditMeal = styled.Text`
   color: ${theme.COLORS.WHITE};
   font-family: ${theme.FONT_FAMILY.BOLD};
   font-size: ${theme.FONT_SIZE.MD};
-  `;
+`;
 
 export const TextDeleteMeal = styled.Text`
   font-family: ${theme.FONT_FAMILY.BOLD};
   font-size: ${theme.FONT_SIZE.MD};
-
 `;
 
 export const ButtonDeleteMeal = styled.TouchableOpacity`

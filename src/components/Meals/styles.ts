@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 import theme from "@theme/index";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   width: 100%;
   margin: 40px;
 `;

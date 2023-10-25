@@ -13,6 +13,8 @@ import {
   BadgeText,
   ButtonDeleteMeal,
   ButtonEditMeal,
+  CancelButton,
+  ConfirmationButton,
   ContainerList,
   Content,
   Form,
@@ -20,28 +22,54 @@ import {
   Header,
   SubTitle,
   Text,
+  TextButton,
   TextDeleteMeal,
   TextEditMeal,
   TextSecondary,
   Title,
+  ViewDialog,
 } from "./styles";
 import { TMealProps } from "@typings/types";
+import { Dialog } from "react-native-simple-dialogs";
+import { useState } from "react";
+import { useMeal } from "@hooks/useMeal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type MealLayoutProps = {
-  item: TMealProps;
-  onGoToEditMeal?: () => void;
-  onDeleteMeal?: (id: string, date: string) => Promise<void>;
-};
 
-export function ViewMeal({
-  onGoToEditMeal,
-  item,
-  onDeleteMeal,
-}: MealLayoutProps) {
+export function ViewMeal() {
   const route = useRoute();
-  const navigation = useNavigation()
-  const { date, description, isHealthy, name, time } = route.params as TMealProps;
+  const navigation = useNavigation();
+  const { getMeals } = useMeal();
+
+  const [openDialogConfirmation, setOpenDialogConfirmation] = useState(false);
+
+  const { id, date, description, isHealthy, name, time } = route.params as TMealProps;
   const badgeText = isHealthy ? "dentro da dieta" : "fora da dieta";
+
+  async function handleDeleteMeal(mealId: string) {
+    try {
+      const meals = await getMeals()
+
+      const deletedMeal = meals.filter(meal => meal.id !== mealId);
+
+      await AsyncStorage.setItem('@daily-diet:addMeal', JSON.stringify(deletedMeal));
+
+      navigation.goBack();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function handleGoToEditMealPage() {
+    navigation.navigate("EditMeal", {
+      id,
+      date,
+      description,
+      isHealthy,
+      name,
+      time
+    });
+  }
 
   return (
     <ContainerList isHealthy={isHealthy}>
@@ -84,7 +112,7 @@ export function ViewMeal({
           </View>
           <View>
             <ButtonEditMeal
-              onPress={onGoToEditMeal}
+              onPress={handleGoToEditMealPage}
             >
               <PencilSimpleLine
                 size={22}
@@ -96,7 +124,7 @@ export function ViewMeal({
               </TextEditMeal>
             </ButtonEditMeal>
 
-            <ButtonDeleteMeal>
+            <ButtonDeleteMeal onPress={() => setOpenDialogConfirmation(state => !state)}>
               <Trash
                 size={22}
                 color={theme.COLORS.GRAY_100}
@@ -108,6 +136,25 @@ export function ViewMeal({
           </View>
         </Form>
       </Content>
+      <Dialog
+        visible={openDialogConfirmation}
+        title="Deseja realmente excluir o registro da refeição?"
+        onTouchOutside={() => setOpenDialogConfirmation(state => !state)}
+      >
+        <ViewDialog>
+          <CancelButton onPress={() => setOpenDialogConfirmation(state => !state)}>
+            <TextButton secondary>
+              Cancelar
+            </TextButton>
+          </CancelButton>
+
+          <ConfirmationButton onPress={() => handleDeleteMeal(id)}>
+            <TextButton>
+              Sim, excluir
+            </TextButton>
+          </ConfirmationButton>
+        </ViewDialog>
+      </Dialog>
     </ContainerList>
   );
 }

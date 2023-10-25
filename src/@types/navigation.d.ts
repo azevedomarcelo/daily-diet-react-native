@@ -1,10 +1,13 @@
+import { TMealProps } from "@typings/types";
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
       Home: undefined;
       MealsStatistic: undefined;
-      ViewMeal: Meal;
+      ViewMeal: TMealProps;
       AddMeal: undefined;
+      EditMeal: TMealProps;
     }
   }
 }

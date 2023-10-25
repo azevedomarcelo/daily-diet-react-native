@@ -162,3 +162,33 @@ export const ButtonDeleteMeal = styled.TouchableOpacity`
 
   border-width: 1px;
 `;
+
+export const ViewDialog = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+`
+
+export const CancelButton = styled.TouchableOpacity`
+  border-width: 2px;
+  border-radius: 8px;
+  padding: 16px;
+`;
+
+export const ConfirmationButton = styled.TouchableOpacity`
+  border-width: 2px;
+  border-radius: 8px;
+  padding: 16px;
+  background: ${theme.COLORS.GRAY_100};
+`;
+
+type ColorTextProps = {
+  secondary: boolean;
+}
+
+export const TextButton = styled.Text`
+  font-size: ${theme.FONT_SIZE.MD};
+  font-family: ${theme.FONT_FAMILY.BOLD};
+  color: ${({ secondary }: ColorTextProps) =>
+    secondary ? theme.COLORS.GRAY_100 : theme.COLORS.WHITE
+  }
+`;

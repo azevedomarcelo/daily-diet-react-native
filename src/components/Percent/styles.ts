@@ -6,10 +6,16 @@ export const Container = styled.View`
   width: 100%;
 `;
 
+type PercentProps = {
+  isHealthy: boolean;
+}
+
 export const ArrowButton = styled.TouchableOpacity`
   position: relative;
   border-radius: 8px;
-  background: ${theme.COLORS.GREEN_LIGHT};
+  background: ${({ isHealthy }: PercentProps) =>
+    isHealthy ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT
+  };
   width: 100%;
   align-items: center;
   padding: 20px;
@@ -25,7 +31,9 @@ export const ArrowUpToRight = styled(ArrowUpRight)`
   top: 16px;
   right: 16px;
   position: absolute;
-  color: ${theme.COLORS.GREEN_DARK};
+  color: ${({ isHealthy }: PercentProps) =>
+    isHealthy ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
+  };
 `;
 
 export const TextDescription = styled.Text`

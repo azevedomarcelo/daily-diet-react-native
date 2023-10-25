@@ -1,18 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
 import { ArrowLeft } from "phosphor-react-native";
 import { BackButton, CardsContent, CardsDescription, CardsGroup, CardsInfo, CardsNumber, Container, Content, Description, StatisticContainer, StatisticTitle, TitlePercentage } from "./styles";
+import { useMeal } from "@hooks/useMeal";
 
 export function MealsStatistic() {
   const { goBack } = useNavigation();
+  const { statistics } = useMeal();
   return (
     <Container>
-      <Content>
+      <Content isHealthy={statistics.percentage > 50}>
         <BackButton onPress={goBack}>
           <ArrowLeft />
         </BackButton>
 
         <TitlePercentage>
-          98.86%
+          {statistics.percentage}%
         </TitlePercentage>
         <Description>
           das refeições dentro da dieta
@@ -30,7 +32,7 @@ export function MealsStatistic() {
 
         <CardsContent>
           <CardsNumber>
-            22
+            {statistics.sequence}
           </CardsNumber>
           <CardsDescription>
             melhor sequência de pratos dentro da dieta
@@ -39,7 +41,7 @@ export function MealsStatistic() {
 
         <CardsContent>
           <CardsNumber>
-            109
+            {statistics.mealsQuantity}
           </CardsNumber>
           <CardsDescription>
             refeições registradas
@@ -49,7 +51,7 @@ export function MealsStatistic() {
         <CardsGroup>
           <CardsInfo isHealthy={true}>
             <CardsNumber>
-              99
+              {statistics.healthyMealsQuantity}
             </CardsNumber>
             <CardsDescription>
               refeições dentro da dieta
@@ -58,7 +60,7 @@ export function MealsStatistic() {
 
           <CardsInfo isHealthy={false}>
             <CardsNumber>
-              10
+              {statistics.unhealthyMealsQuantity}
             </CardsNumber>
             <CardsDescription>
               refeições fora da dieta

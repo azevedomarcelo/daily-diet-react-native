@@ -38,10 +38,6 @@ export function Meals() {
   const loadMeals = async () => {
     const meals = await getMeals();
 
-    let positive = 0;
-    let negative = 0;
-    let cont = 0;
-
     const separatedByDate: { [key: string]: TMealProps[] } = {};
 
     meals.forEach(obj => {
@@ -57,42 +53,12 @@ export function Meals() {
       data: separatedByDate[date],
     }));
 
-    sections.map((section) => {
-      section.data.map((item) => {
-        item.isHealthy ? positive++ : negative++;
-      });
-    });
-
-    sections.map((section) => {
-      section.data.map((item) => {
-        item.isHealthy ? positive++ : negative++;
-      });
-    });
-
     const sortedMeals = sections.sort((a, b) => {
       const dateA = new Date(formatDate(a.title));
       const dateB = new Date(formatDate(b.title));
 
       return compareDesc(dateA, dateB);
     });
-
-    sortedMeals.map((section) => {
-      section.data.map((item) => {
-        if (item.isHealthy) cont++;
-        else cont = 0;
-      });
-    });
-
-    // setStatistics((prev) => {
-    //   return {
-    //     ...prev,
-    //     percentage: (positive / (positive + negative)) * 100,
-    //     sequence: cont,
-    //     healthyMealsQuantity: positive,
-    //     unhealthyMealsQuantity: negative,
-    //     mealsQuantity: positive + negative,
-    //   };
-    // });
 
     setMeals(sortedMeals);
   };
